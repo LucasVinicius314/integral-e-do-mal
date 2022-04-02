@@ -7,8 +7,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonStyle = ButtonStyle(
+      padding: MaterialStateProperty.all(const EdgeInsets.all(24)),
+    );
+
     return MaterialApp(
+      color: Colors.red,
       title: 'Integral é do mal',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        textButtonTheme: TextButtonThemeData(style: buttonStyle),
+        elevatedButtonTheme: ElevatedButtonThemeData(style: buttonStyle),
+      ),
       routes: {
         SplashPage.route: (context) => const SplashPage(),
         MainPage.route: (context) => const MainPage(),
