@@ -1,0 +1,15 @@
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\bin\Debug\net6.0\IntegralEDoMal.exe
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\bin\Debug\net6.0\IntegralEDoMal.deps.json
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\bin\Debug\net6.0\IntegralEDoMal.runtimeconfig.json
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\bin\Debug\net6.0\IntegralEDoMal.dll
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\bin\Debug\net6.0\IntegralEDoMal.pdb
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.csproj.AssemblyReference.cache
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.GeneratedMSBuildEditorConfig.editorconfig
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.AssemblyInfoInputs.cache
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.AssemblyInfo.cs
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.csproj.CoreCompileInputs.cache
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.dll
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\refint\IntegralEDoMal.dll
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.pdb
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\IntegralEDoMal.genruntimeconfig.cache
+D:\AAAAULAS\PUC\Terceiro\Calculo\integral-e-do-mal\core\IntegralEDoMal\obj\Debug\net6.0\ref\IntegralEDoMal.dll

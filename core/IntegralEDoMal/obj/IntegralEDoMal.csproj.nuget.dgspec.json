@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\IntegralEDoMal\\IntegralEDoMal.csproj": {}
+    "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\core\\IntegralEDoMal\\IntegralEDoMal.csproj": {}
   },
   "projects": {
-    "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\IntegralEDoMal\\IntegralEDoMal.csproj": {
+    "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\core\\IntegralEDoMal\\IntegralEDoMal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\IntegralEDoMal\\IntegralEDoMal.csproj",
+        "projectUniqueName": "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\core\\IntegralEDoMal\\IntegralEDoMal.csproj",
         "projectName": "IntegralEDoMal",
-        "projectPath": "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\IntegralEDoMal\\IntegralEDoMal.csproj",
+        "projectPath": "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\core\\IntegralEDoMal\\IntegralEDoMal.csproj",
         "packagesPath": "C:\\Users\\T-Gamer\\.nuget\\packages\\",
-        "outputPath": "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\IntegralEDoMal\\obj\\",
+        "outputPath": "D:\\AAAAULAS\\PUC\\Terceiro\\Calculo\\integral-e-do-mal\\core\\IntegralEDoMal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
