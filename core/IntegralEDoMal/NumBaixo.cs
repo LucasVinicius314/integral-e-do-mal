@@ -1,8 +1,9 @@
 namespace Calculo2TP1
 {
-  class NumBaixo
+  class NumQuadrado
   {
-    public uint numx { get; set; }
-    public uint num { get; set; }
+    public double Numx { get; set; }
+    public double NumSx { get; set; }
+    public double NumSx2 { get; set; }
   }
 }

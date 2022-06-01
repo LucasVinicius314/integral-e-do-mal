@@ -6,24 +6,52 @@
     static void Main(string[] args)
     {
       Console.WriteLine("Hello, World!");
-      CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)");
+      CaucularIntegral("3x", "(x + 1)(x + 2)", 1, 0);
+      // CaucularIntegral("2x", "x² - 5x + 6");
+      // CaucularIntegral("7x", "(x + 3)(x + 2)");
+      // CaucularIntegral("3x", "x² - 10x + 21");
+      CaucularIntegral("1", "x² - 4", 0, 0);
     }
 
-    static void CaucularIntegral(string cima, string baixo, uint? sup = null, uint? inf = null)
+    static void CaucularIntegral(string cima, string baixo, int sup, int inf)
     {
       cima += " ";
+      List<string> lbaixo;
+      List<Num> embaixo;
+      var a = false;
       if (baixo[0] != '(')
       {
+        baixo += " ";
         //calcular baskara
+        lbaixo = ExtrairPalavra(baixo);
+
+        embaixo = InserirSegundoGrau(lbaixo);
+        if (embaixo.Count == 2)
+        {
+          a = true;
+        }
+        embaixo = SegundoGrau(embaixo);
+      }
+      else
+      {
+        lbaixo = ExtrairPalavra(baixo);
+
+        embaixo = InserirNum(lbaixo);
       }
 
       var lcima = ExtrairPalavra(cima);
-      var lbaixo = ExtrairPalavra(baixo);
       var emcima = InserirNum(lcima)[0];
-      var embaixo = InserirNum(lbaixo);
 
       var abc = CalculaABC(emcima, embaixo);
-      ImprimirIntegral(embaixo, abc);
+
+      if (sup != 0 || inf != 0)
+      {
+        Console.WriteLine(CalculaIntegralImpropria(embaixo, abc, sup, inf));
+      }
+      else
+      {
+        ImprimirIntegral(embaixo, abc);
+      }
     }
     static void ImprimirIntegral(List<Num> baixo, List<double> abc)
     {
@@ -31,7 +59,6 @@
       var imprimirTudo = "";
       for (int i = 0; i < baixo.Count; i++)
       {
-
         if (baixo[i].Numx == 1)
         {
           numx = "x";
@@ -57,7 +84,6 @@
       }
     }
 
-
     static List<double> CalculaABC(Num cima, List<Num> baixo)
     {
       var respostas = new List<double>();
@@ -79,6 +105,82 @@
       return respostas;
     }
 
+    static double CalculaIntegralImpropria(List<Num> baixo, List<double> abc, int sup, int inf)
+    {
+      //terminar
+      var soma = 0.00;
+      for (int i = 0; i < baixo.Count; i++)
+      {
+        var a = baixo[i].Numx * (double)sup;
+        var b = baixo[i].Numx * (double)inf;
+        soma += abc[i] * Math.Log(a);
+        soma -= abc[i] * Math.Log(b);
+      }
+
+      return soma;
+    }
+
+    static Tuple<Num, Num> CalculaBaskara(List<Num> baixo)
+    {
+      var primeiro = new Num();
+      var segundo = new Num();
+
+      var delta = Math.Pow(baixo[1].Numx, 2) - 4 * baixo[0].Numx * baixo[2].NumSx;
+      var baskaraPosi = (-1 * baixo[1].Numx + Math.Sqrt(delta)) / 2 * baixo[0].Numx;
+      var baskaraNega = (-1 * baixo[1].Numx - Math.Sqrt(delta)) / 2 * baixo[0].Numx;
+
+      primeiro.Numx = baixo[0].Numx;
+      segundo.Numx = baixo[0].Numx; ;
+
+      primeiro.NumSx = baskaraPosi * -1 * baixo[0].Numx;
+
+      segundo.NumSx = baskaraNega * -1 * baixo[0].Numx;
+      return new Tuple<Num, Num>(primeiro, segundo);
+    }
+    static Tuple<Num, Num> SegundoIncompleta(List<Num> baixo)
+    {
+      var primeiro = new Num();
+      var segundo = new Num();
+      primeiro.Numx = baixo[0].Numx;
+      segundo.Numx = baixo[0].Numx;
+
+      if (baixo[1].NumSx < 0)
+      {
+        baixo[1].NumSx *= -1;
+
+        primeiro.NumSx = Math.Sqrt(baixo[1].NumSx);
+        segundo.NumSx = primeiro.NumSx * -1;
+      }
+      else
+      {
+        primeiro.Numx = Math.Sqrt(baixo[1].Numx);
+        segundo.NumSx = primeiro.NumSx;
+      }
+
+      return new Tuple<Num, Num>(primeiro, segundo);
+    }
+    static List<Num> SegundoGrau(List<Num> baixo)
+    {
+      var respostas = new List<Num>();
+
+      //so calcula se tiver 3 cara
+      //fazer com so 2
+      if (baixo.Count == 3)
+      {
+        var baskara = CalculaBaskara(baixo);
+        respostas.Add(baskara.Item1);
+        respostas.Add(baskara.Item2);
+      }
+      else if (baixo.Count == 2)
+      {
+        var segundoIncompleta = SegundoIncompleta(baixo);
+        respostas.Add(segundoIncompleta.Item1);
+        respostas.Add(segundoIncompleta.Item2);
+      }
+
+      return respostas;
+    }
+
     static List<Num> InserirNum(List<string> baixo)
     {
       var lista = new List<Num>();
@@ -87,6 +189,8 @@
         var num = new Num();
         if (baixo[i].Contains("x") == true)
         {
+          baixo[i] = baixo[i].Replace("²", "");
+
           if (baixo[i] == "x")
           {
             num.Numx = 1;
@@ -101,6 +205,42 @@
             num.NumSx = Convert.ToDouble(baixo[i + 1]);
             i++;
           }
+        }
+        else
+        {
+          num.Numx = 0;
+          num.NumSx = Convert.ToDouble(baixo[i]);
+        }
+
+        lista.Add(num);
+      }
+
+      return lista;
+    }
+    static List<Num> InserirSegundoGrau(List<string> baixo)
+    {
+      var lista = new List<Num>();
+      for (int i = 0; i < baixo.Count; i += 1)
+      {
+        var num = new Num();
+        if (baixo[i].Contains("x") == true)
+        {
+          baixo[i] = baixo[i].Replace("²", "");
+
+          if (baixo[i] == "x")
+          {
+            num.Numx = 1;
+          }
+          else
+          {
+            baixo[i] = baixo[i].Replace("x", "");
+            num.Numx = Convert.ToDouble(baixo[i]);
+          }
+          // if (baixo.Count != 1)
+          // {
+          //   num.NumSx = Convert.ToDouble(baixo[i + 1]);
+          //   i++;
+          // }
         }
         else
         {
