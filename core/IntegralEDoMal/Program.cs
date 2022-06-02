@@ -6,11 +6,14 @@
     static void Main(string[] args)
     {
       Console.WriteLine("Hello, World!");
+      CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)", 0, 0);
       CaucularIntegral("3x", "(x + 1)(x + 2)", 1, 0);
-      // CaucularIntegral("2x", "x² - 5x + 6");
-      // CaucularIntegral("7x", "(x + 3)(x + 2)");
-      // CaucularIntegral("3x", "x² - 10x + 21");
+      CaucularIntegral("1", "(x + 3)(x - 2)(x + 4)", 0, 0);
+      CaucularIntegral("2x", "x² - 5x + 6", 0, 0);
+      CaucularIntegral("7x", "(x + 3)(x + 2)", 0, 0);
+      CaucularIntegral("3x", "x² - 10x + 21", 0, 0);
       CaucularIntegral("1", "x² - 4", 0, 0);
+
     }
 
     static void CaucularIntegral(string cima, string baixo, int sup, int inf)
@@ -18,7 +21,7 @@
       cima += " ";
       List<string> lbaixo;
       List<Num> embaixo;
-      var a = false;
+
       if (baixo[0] != '(')
       {
         baixo += " ";
@@ -26,10 +29,7 @@
         lbaixo = ExtrairPalavra(baixo);
 
         embaixo = InserirSegundoGrau(lbaixo);
-        if (embaixo.Count == 2)
-        {
-          a = true;
-        }
+
         embaixo = SegundoGrau(embaixo);
       }
       else
@@ -111,10 +111,8 @@
       var soma = 0.00;
       for (int i = 0; i < baixo.Count; i++)
       {
-        var a = baixo[i].Numx * (double)sup;
-        var b = baixo[i].Numx * (double)inf;
-        soma += abc[i] * Math.Log(a);
-        soma -= abc[i] * Math.Log(b);
+        soma += abc[i] * Math.Log(baixo[i].Numx * (double)sup + baixo[i].NumSx);
+        soma -= abc[i] * Math.Log(baixo[i].Numx * (double)inf + baixo[i].NumSx);
       }
 
       return soma;
