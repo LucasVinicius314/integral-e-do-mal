@@ -6,17 +6,17 @@
     static void Main(string[] args)
     {
       Console.WriteLine("Hello, World!");
-      CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)", 0, 0);
+      CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)");
       CaucularIntegral("3x", "(x + 1)(x + 2)", 1, 0);
-      CaucularIntegral("1", "(x + 3)(x - 2)(x + 4)", 0, 0);
-      CaucularIntegral("2x", "x² - 5x + 6", 0, 0);
-      CaucularIntegral("7x", "(x + 3)(x + 2)", 0, 0);
-      CaucularIntegral("3x", "x² - 10x + 21", 0, 0);
-      CaucularIntegral("1", "x² - 4", 0, 0);
+      CaucularIntegral("1", "(x + 3)(x - 2)(x + 4)");
+      CaucularIntegral("2x", "x² - 5x + 6");
+      CaucularIntegral("7x", "(x + 3)(x + 2)");
+      CaucularIntegral("3x", "x² - 10x + 21");
+      CaucularIntegral("1", "x² - 4");
 
     }
 
-    static void CaucularIntegral(string cima, string baixo, int sup, int inf)
+    static void CaucularIntegral(string cima, string baixo, int sup = 0, int inf = 0)
     {
       cima += " ";
       List<string> lbaixo;
