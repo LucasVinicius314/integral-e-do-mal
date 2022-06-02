@@ -89,7 +89,7 @@
       var respostas = new List<double>();
       for (int i = 0; i < baixo.Count; i++)
       {
-        var numatual = -1 * baixo[i].NumSx;
+        var numatual = -1 * baixo[i].NumSx / baixo[i].Numx;
         var soma = 0.0;
         for (int j = 0; j < baixo.Count; j++)
         {
