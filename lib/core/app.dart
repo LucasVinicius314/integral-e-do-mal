@@ -22,6 +22,7 @@ class App extends StatelessWidget {
       title: 'Integral é do mal',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Poppins',
         primarySwatch: Colors.red,
         textButtonTheme: TextButtonThemeData(style: buttonStyle),
         elevatedButtonTheme: ElevatedButtonThemeData(style: buttonStyle),

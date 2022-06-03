@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:math_parser/math_parser.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,62 +13,58 @@ class _MainPageState extends State<MainPage> {
   String? _result;
   bool _invalid = true;
 
-  final _focusNode = FocusNode();
-  final _controller = TextEditingController();
+  final _numeratorFocusNode = FocusNode();
+  final _numeratorController = TextEditingController();
+
+  final _denominatorFocusNode = FocusNode();
+  final _denominatorController = TextEditingController();
 
   Future<void> _calculate() async {
-    try {
-      final text = _controller.text;
-
-      final expression = MathNodeExpression.fromString(text);
-
-      final res = expression.calc(MathVariableValues.none);
-
-      setState(() {
-        _result = res.toString();
-      });
-    } on CantProcessExpressionException {
-      await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            // TODO: fix
-            title: const Text('Calma lá'),
-            content: const Text('A expressão inserida é inválida.'),
-            actions: [
-              TextButton(
-                child: const Text('BELEZA'),
-                onPressed: () async {
-                  await Navigator.of(context).maybePop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          // TODO: fix
+          title: const Text('Calma lá'),
+          content: const Text('A expressão inserida é inválida.'),
+          actions: [
+            TextButton(
+              child: const Text('BELEZA'),
+              onPressed: () async {
+                await Navigator.of(context).maybePop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   void initState() {
     super.initState();
 
-    _controller.addListener(() {
-      final text = _controller.text;
+    void listener() {
+      final numeratorText = _numeratorController.text;
+      final denominatorText = _denominatorController.text;
 
-      final invalid = text.isEmpty;
+      final invalid = numeratorText.isEmpty || denominatorText.isEmpty;
 
       if (invalid == _invalid) return;
 
       setState(() {
         _invalid = invalid;
       });
-    });
+    }
+
+    _numeratorController.addListener(listener);
+    _denominatorController.addListener(listener);
   }
 
   @override
   void dispose() {
-    _controller.removeListener(() {});
+    _numeratorController.removeListener(() {});
+    _denominatorController.removeListener(() {});
 
     super.dispose();
   }
@@ -94,18 +89,101 @@ class _MainPageState extends State<MainPage> {
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            margin: const EdgeInsets.all(16),
-                            child: TextFormField(
-                              focusNode: _focusNode,
-                              controller: _controller,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(8),
-                                // TODO: fix
-                                hintText: 'Digite algo para ser calculado',
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 16,
+                                  left: 32,
+                                  right: 32,
+                                  bottom: 32,
+                                ),
+                                child: Text(
+                                  '∫',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      ?.apply(fontSizeFactor: 3),
+                                ),
                               ),
-                            ),
+                              SizedBox.fromSize(
+                                size: const Size(100, 120),
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: Transform.translate(
+                                    offset: const Offset(0, -20),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        TextFormField(
+                                          textAlign: TextAlign.end,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            alignLabelWithHint: true,
+                                            labelText: 'Limite superior:',
+                                            labelStyle: Theme.of(context)
+                                                .textTheme
+                                                .caption,
+                                          ),
+                                        ),
+                                        TextFormField(
+                                          textAlign: TextAlign.end,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            alignLabelWithHint: true,
+                                            labelText: 'Limite inferior:',
+                                            labelStyle: Theme.of(context)
+                                                .textTheme
+                                                .caption,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAlias,
+                                      margin: const EdgeInsets.all(16),
+                                      child: TextFormField(
+                                        focusNode: _numeratorFocusNode,
+                                        controller: _numeratorController,
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.all(8),
+                                          // TODO: fix
+                                          hintText: 'Digite o numerador',
+                                        ),
+                                      ),
+                                    ),
+                                    const Divider(
+                                      height: 0,
+                                      endIndent: 16,
+                                      indent: 16,
+                                    ),
+                                    Card(
+                                      clipBehavior: Clip.antiAlias,
+                                      margin: const EdgeInsets.all(16),
+                                      child: TextFormField(
+                                        focusNode: _denominatorFocusNode,
+                                        controller: _denominatorController,
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.all(8),
+                                          // TODO: fix
+                                          hintText: 'Digite o denominador',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                           Builder(
                             builder: (context) {

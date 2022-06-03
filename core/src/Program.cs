@@ -6,13 +6,13 @@
     static void Main(string[] args)
     {
       Console.WriteLine("Hello, World!");
-      CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)");
-      CaucularIntegral("3x", "(x + 1)(x + 2)", 1, 0);
-      CaucularIntegral("1", "(x + 3)(x - 2)(x + 4)");
-      CaucularIntegral("2x", "x² - 5x + 6");
-      CaucularIntegral("7x", "(x + 3)(x + 2)");
-      CaucularIntegral("3x", "x² - 10x + 21");
-      CaucularIntegral("1", "x² - 4");
+      CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)"); // - 0.5ln(x - 1) - 4ln(x - 2) + 1.6ln(x - 4) + C
+      CaucularIntegral("3x", "(x + 1)(x + 2)", 1, 0); // 0.35334910696915056
+      CaucularIntegral("1", "(x + 3)(x - 2)(x + 4)"); // - 0.25ln(x + 3) + 0.09090909090909091ln(x - 2) - 0.14285714285714285ln(x + 4) + C
+      CaucularIntegral("2x", "x² - 5x + 6"); // + 6ln(x - 3) - 4ln(x - 2) + C
+      CaucularIntegral("7x", "(x + 3)(x + 2)"); // + 21ln(x + 3) - 14ln(x + 2) + C
+      CaucularIntegral("3x", "x² - 10x + 21"); // + 5.25ln(x - 7) - 2.25ln(x - 3) + C
+      CaucularIntegral("1", "x² - 4"); // - 0.25ln(x + 2) + 0.25ln(x - 2) + C
 
     }
 
