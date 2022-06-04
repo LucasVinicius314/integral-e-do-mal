@@ -165,7 +165,7 @@ class _MainPageState extends State<MainPage> {
       ),
       SliverGrid.extent(
         maxCrossAxisExtent: 180,
-        childAspectRatio: viewportWidth >= Breakpoints.md ? 2 : 1,
+        childAspectRatio: viewportWidth >= Breakpoints.lg ? 2 : 1,
         children: List.generate(_examples.length, (index) {
           final example = _examples[index];
 
