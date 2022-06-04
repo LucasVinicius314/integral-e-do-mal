@@ -32,12 +32,15 @@ class _MainPageState extends State<MainPage> {
 
   final _examples = [
     const Entry(numerator: '2x', denominator: '(x - 1)(x - 2)(x - 4)'),
-    const Entry(numerator: '3x', denominator: '(x + 1)(x + 2)'),
+    const Entry(
+      numerator: '3x',
+      denominator: '(x + 1)(x + 2)',
+      upperLimit: 1,
+      lowerLimit: 0,
+    ),
     const Entry(
       numerator: '1',
       denominator: '(x + 3)(x - 2)(x + 4)',
-      upperLimit: 1,
-      lowerLimit: 0,
     ),
     const Entry(numerator: '2x', denominator: 'x² - 5x + 6'),
     const Entry(numerator: '7x', denominator: '(x + 3)(x + 2)'),

@@ -221,10 +221,17 @@ class Calculadora {
     var soma = 0.0;
 
     for (int i = 0; i < baixos.length; i++) {
-      soma += abc[i] *
-          math.log(baixos[i].numX * (sup + baixos[i].numSX).toDouble());
-      soma -= abc[i] *
-          math.log(baixos[i].numX * (inf + baixos[i].numSX).toDouble());
+      final numX = baixos[i].numX;
+      final numSX = baixos[i].numSX;
+
+      final plus = (sup + numSX).toDouble();
+      final minus = (inf + numSX).toDouble();
+
+      final t = abc[i];
+
+      soma += t * math.log(numX * plus);
+
+      soma -= t * math.log(numX * minus);
     }
 
     return soma;
