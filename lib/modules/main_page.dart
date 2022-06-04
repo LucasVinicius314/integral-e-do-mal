@@ -72,12 +72,16 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _removeFromHistory(final Entry entry) {
+    FocusScope.of(context).unfocus();
+
     _history.remove(entry);
 
     setState(() {});
   }
 
   void _loadEntry(final Entry entry) {
+    FocusScope.of(context).unfocus();
+
     _numeratorController.text = entry.numerator;
     _denominatorController.text = entry.denominator;
     _upperLimitController.text = (entry.upperLimit ?? '').toString();
@@ -89,6 +93,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _calculate() async {
+    FocusScope.of(context).unfocus();
+
     final numerator = _numeratorController.text;
     final denominator = _denominatorController.text;
     final upperLimit = int.tryParse(_upperLimitController.text);
