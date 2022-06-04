@@ -39,21 +39,17 @@ class Calculadora {
     var abc = _calculaABC(cima: emcima, baixo: embaixo);
 
     if (sup != 0 || inf != 0) {
-      if (kDebugMode) {
-        final res = _calculaIntegralImpropria(
-          baixos: embaixo,
-          abc: abc,
-          sup: sup,
-          inf: inf,
-        );
+      final res = _calculaIntegralImpropria(
+        baixos: embaixo,
+        abc: abc,
+        sup: sup,
+        inf: inf,
+      );
 
-        return res.toString();
-      }
+      return res.toString();
     } else {
       return _imprimirIntegral(baixo: embaixo, abc: abc);
     }
-
-    return 'empty';
   }
 
   static String _colocaSinal({required final double num}) {
