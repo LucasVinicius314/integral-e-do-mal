@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:integral_e_do_mal/core/calculadora.dart';
+import 'package:integral_e_do_mal/extensions/trim_decimal_part.dart';
 import 'package:integral_e_do_mal/models/entry.dart';
 import 'package:integral_e_do_mal/utils/breakpoints.dart';
 import 'package:integral_e_do_mal/widgets/expression_text_form_field_card.dart';
@@ -17,6 +19,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   String? _result;
   bool _invalid = true;
+  bool _capDecimals = true;
 
   final _numeratorFocusNode = FocusNode();
   final _numeratorController = TextEditingController();
@@ -49,6 +52,14 @@ class _MainPageState extends State<MainPage> {
   ];
 
   final _history = <Entry>[];
+
+  Future<void> _copy(final String text) async {
+    await Clipboard.setData(
+      ClipboardData(text: text),
+    );
+
+    _showSnackBar(message: 'Resultado copiado para a área de transferência');
+  }
 
   void _showSnackBar({required final String message}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -184,6 +195,44 @@ class _MainPageState extends State<MainPage> {
         }),
       ),
     ];
+  }
+
+  SliverMultiBoxAdaptorWidget _settingsWidget() {
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text('Configurações'),
+              Text(
+                'Mude um pouco como o app funciona.',
+                style: Theme.of(context).textTheme.caption,
+              ),
+            ],
+          ),
+        ),
+        SwitchListTile(
+          value: _capDecimals,
+          title: const Text(
+            'Limitar casas decimais na resposta',
+          ),
+          onChanged: (value) {
+            setState(() {
+              _capDecimals = value;
+            });
+          },
+        ),
+        const SizedBox(height: 8),
+        TextButton(
+          child: const Text('LIMPAR RESULTADO'),
+          onPressed: () {
+            _loadEntry(const Entry(numerator: '', denominator: ''));
+          },
+        ),
+      ]),
+    );
   }
 
   SliverMultiBoxAdaptorWidget _historyWidget() {
@@ -392,30 +441,50 @@ class _MainPageState extends State<MainPage> {
 
                                   if (result == null) return Container();
 
+                                  final newResult = _capDecimals
+                                      ? result.capDecimalPlaces()
+                                      : result;
+
                                   return Column(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(16),
-                                        child: Text(
-                                          'Resultado',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'Resultado',
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6,
+                                            ),
+                                            Text(
+                                              'Clique para copiar',
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .caption,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Text(
-                                          result,
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4
-                                              ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
+                                      InkWell(
+                                        onTap: () async {
+                                          await _copy(newResult);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Text(
+                                            newResult,
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline4
+                                                ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -428,6 +497,7 @@ class _MainPageState extends State<MainPage> {
                           ..._exampleWidgets(
                             viewportWidth: MediaQuery.of(context).size.width,
                           ),
+                          _settingsWidget(),
                         ],
                       );
                     },
