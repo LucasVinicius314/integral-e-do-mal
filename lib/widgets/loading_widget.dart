@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// [Widget] do ícone de carregamento.
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({Key? key}) : super(key: key);
 

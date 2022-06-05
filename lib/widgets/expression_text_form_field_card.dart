@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// [TextFormField] envolvido por um [Card], utilizado para escrever expressões.
 class ExpressionTextFormFieldCard extends StatelessWidget {
   ExpressionTextFormFieldCard({
     Key? key,

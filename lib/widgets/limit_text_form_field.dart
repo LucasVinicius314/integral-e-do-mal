@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// [TextFormField] de limite.
 class LimitTextFormField extends StatelessWidget {
   LimitTextFormField({
     Key? key,

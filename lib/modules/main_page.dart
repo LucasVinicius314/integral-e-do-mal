@@ -7,6 +7,7 @@ import 'package:integral_e_do_mal/utils/breakpoints.dart';
 import 'package:integral_e_do_mal/widgets/expression_text_form_field_card.dart';
 import 'package:integral_e_do_mal/widgets/limit_text_form_field.dart';
 
+/// [Widget] da tela princiapl do app.
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -153,14 +154,17 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  List<SliverMultiBoxAdaptorWidget> _exampleWidgets({
+  List<Widget> _exampleWidgets({
     required final double viewportWidth,
   }) {
     return [
       SliverList(
         delegate: SliverChildListDelegate([
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32,
+              vertical: 16,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -174,25 +178,28 @@ class _MainPageState extends State<MainPage> {
           ),
         ]),
       ),
-      SliverGrid.extent(
-        maxCrossAxisExtent: 180,
-        childAspectRatio: viewportWidth >= Breakpoints.lg ? 2 : 1,
-        children: List.generate(_examples.length, (index) {
-          final example = _examples[index];
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        sliver: SliverGrid.extent(
+          maxCrossAxisExtent: 180,
+          childAspectRatio: viewportWidth >= Breakpoints.lg ? 2 : 1,
+          children: List.generate(_examples.length, (index) {
+            final example = _examples[index];
 
-          return Padding(
-            padding: const EdgeInsets.all(8),
-            child: TextButton(
-              child: Text(
-                'Exemplo ${index + 1}',
-                textAlign: TextAlign.center,
+            return Padding(
+              padding: const EdgeInsets.all(8),
+              child: TextButton(
+                child: Text(
+                  'Exemplo ${index + 1}',
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  _loadEntry(example);
+                },
               ),
-              onPressed: () {
-                _loadEntry(example);
-              },
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     ];
   }
@@ -201,7 +208,10 @@ class _MainPageState extends State<MainPage> {
     return SliverList(
       delegate: SliverChildListDelegate([
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+            vertical: 16,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -213,23 +223,31 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
         ),
-        SwitchListTile(
-          value: _capDecimals,
-          title: const Text(
-            'Limitar casas decimais na resposta',
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SwitchListTile(
+                value: _capDecimals,
+                title: const Text(
+                  'Limitar casas decimais na resposta',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _capDecimals = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 8),
+              TextButton(
+                child: const Text('LIMPAR RESULTADO'),
+                onPressed: () {
+                  _loadEntry(const Entry(numerator: '', denominator: ''));
+                },
+              ),
+            ],
           ),
-          onChanged: (value) {
-            setState(() {
-              _capDecimals = value;
-            });
-          },
-        ),
-        const SizedBox(height: 8),
-        TextButton(
-          child: const Text('LIMPAR RESULTADO'),
-          onPressed: () {
-            _loadEntry(const Entry(numerator: '', denominator: ''));
-          },
         ),
       ]),
     );

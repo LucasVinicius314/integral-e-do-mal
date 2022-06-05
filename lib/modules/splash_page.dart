@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:integral_e_do_mal/modules/main_page.dart';
 import 'package:integral_e_do_mal/widgets/loading_widget.dart';
 
+/// [Widget] da tela de splash.
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 

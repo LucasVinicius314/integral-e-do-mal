@@ -1,3 +1,4 @@
+/// Classe que representa um número, com 2 valores.
 class Numero {
   double numX;
   double numSX;

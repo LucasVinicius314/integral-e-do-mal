@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:integral_e_do_mal/modules/main_page.dart';
 import 'package:integral_e_do_mal/modules/splash_page.dart';
 
-// TODO: app icon
 // TODO: l10n
-// TODO: host
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
