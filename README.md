@@ -31,7 +31,10 @@ Estudo e codificação de algoritmos para resolução de problemas sobre integra
 
 ## Representação Computacional Escolhida
 
-***
+O grupo optou por escolher Dart como linguagem de desenvolvimento por uma maior
+portabilidade e conhecimento do grupo. O projeto está sendo hospedado na internet e
+possui a possibilidade de ser baixado. Além da web o projeto estará disponível na Play
+Store.
 
 <br>
 
