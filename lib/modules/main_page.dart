@@ -129,7 +129,11 @@ class _MainPageState extends State<MainPage> {
       );
 
       setState(() {
-        _result = res;
+        if (res == 'NaN') {
+          _result = 'Não converge';
+        } else {
+          _result = res;
+        }
       });
 
       _addToHistory(entry);

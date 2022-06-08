@@ -2,7 +2,7 @@ import 'package:integral_e_do_mal/core/calculadora.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // CaucularIntegral("2x", "(x - 1)(x - 2)(x - 4)"); // - 0.5ln(x - 1) - 4ln(x - 2) + 1.6ln(x - 4) + C
+  // CalcularIntegral("2x", "(x - 1)(x - 2)(x - 4)"); // - 0.5ln(x - 1) - 4ln(x - 2) + 1.6ln(x - 4) + C
   test('1st', () {
     final res = Calculadora.calcularIntegral(
       cima: '2x',
@@ -15,7 +15,7 @@ void main() {
     );
   });
 
-  // CaucularIntegral("3x", "(x + 1)(x + 2)", 1, 0); // 0.35334910696915056
+  // CalcularIntegral("3x", "(x + 1)(x + 2)", 1, 0); // 0.35334910696915056
   test('2nd', () {
     final res = Calculadora.calcularIntegral(
       cima: '3x',
@@ -30,7 +30,7 @@ void main() {
     );
   });
 
-  // CaucularIntegral("1", "(x + 3)(x - 2)(x + 4)"); // - 0.25ln(x + 3) + 0.09090909090909091ln(x - 2) - 0.14285714285714285ln(x + 4) + C
+  // CalcularIntegral("1", "(x + 3)(x - 2)(x + 4)"); // - 0.25ln(x + 3) + 0.09090909090909091ln(x - 2) - 0.14285714285714285ln(x + 4) + C
   test('3rd', () {
     final res = Calculadora.calcularIntegral(
       cima: '1',
@@ -43,7 +43,7 @@ void main() {
     );
   });
 
-  // CaucularIntegral("2x", "x² - 5x + 6"); // + 6ln(x - 3) - 4ln(x - 2) + C
+  // CalcularIntegral("2x", "x² - 5x + 6"); // + 6ln(x - 3) - 4ln(x - 2) + C
   test('4th', () {
     final res = Calculadora.calcularIntegral(
       cima: '2x',
@@ -56,7 +56,7 @@ void main() {
     );
   });
 
-  // CaucularIntegral("7x", "(x + 3)(x + 2)"); // + 21ln(x + 3) - 14ln(x + 2) + C
+  // CalcularIntegral("7x", "(x + 3)(x + 2)"); // + 21ln(x + 3) - 14ln(x + 2) + C
   test('5th', () {
     final res = Calculadora.calcularIntegral(
       cima: '7x',
@@ -69,7 +69,7 @@ void main() {
     );
   });
 
-  // CaucularIntegral("3x", "x² - 10x + 21"); // + 5.25ln(x - 7) - 2.25ln(x - 3) + C
+  // CalcularIntegral("3x", "x² - 10x + 21"); // + 5.25ln(x - 7) - 2.25ln(x - 3) + C
   test('6th', () {
     final res = Calculadora.calcularIntegral(
       cima: '3x',
@@ -82,7 +82,7 @@ void main() {
     );
   });
 
-// CaucularIntegral("1", "x² - 4"); // - 0.25ln(x + 2) + 0.25ln(x - 2) + C
+  // CalcularIntegral("1", "x² - 4"); // - 0.25ln(x + 2) + 0.25ln(x - 2) + C
   test('7th', () {
     final res = Calculadora.calcularIntegral(
       cima: '1',
@@ -92,6 +92,21 @@ void main() {
     expect(
       res,
       '- 0.25ln(x + 2) + 0.25ln(x - 2) + C',
+    );
+  });
+
+  // CalcularIntegral("1", "x² - 4"); // - 0.25ln(x + 2) + 0.25ln(x - 2) + C
+  test('8th', () {
+    final res = Calculadora.calcularIntegral(
+      cima: '1x',
+      baixo: '(x + 3)(x - 2)(x + 4)',
+      sup: 4,
+      inf: 0,
+    );
+
+    expect(
+      res,
+      'NaN',
     );
   });
 }
