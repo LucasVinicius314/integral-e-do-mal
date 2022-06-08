@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
       _history.remove(_history.last);
     }
 
-    _history.add(entry);
+    _history.insert(0, entry);
 
     setState(() {});
   }
