@@ -285,8 +285,11 @@ class _MainPageState extends State<MainPage> {
                   height: 16,
                 ),
                 ...history.map((e) {
+                  final result = e.result ?? '';
+
                   return ListTile(
-                    title: Text(e.result ?? ''),
+                    title:
+                        Text(_capDecimals ? result.capDecimalPlaces() : result),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
