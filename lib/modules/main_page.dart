@@ -34,6 +34,8 @@ class _MainPageState extends State<MainPage> {
   final _lowerLimitFocusNode = FocusNode();
   final _lowerLimitController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   final _examples = [
     const Entry(numerator: '2x', denominator: '(x - 1)(x - 2)(x - 4)'),
     const Entry(
@@ -111,6 +113,10 @@ class _MainPageState extends State<MainPage> {
     final denominator = _denominatorController.text;
     final upperLimit = int.tryParse(_upperLimitController.text);
     final lowerLimit = int.tryParse(_lowerLimitController.text);
+
+    if (_formKey.currentState?.validate() != true) {
+      return;
+    }
 
     try {
       final res = Calculadora.calcularIntegral(
@@ -400,73 +406,130 @@ class _MainPageState extends State<MainPage> {
                           SliverList(
                             delegate: SliverChildListDelegate([
                               const SizedBox(height: 32),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 16,
-                                      left: 32,
-                                      right: 32,
-                                      bottom: 32,
+                              Form(
+                                key: _formKey,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 16,
+                                        left: 32,
+                                        right: 32,
+                                        bottom: 32,
+                                      ),
+                                      child: Text(
+                                        '∫',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            ?.apply(fontSizeFactor: 3),
+                                      ),
                                     ),
-                                    child: Text(
-                                      '∫',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6
-                                          ?.apply(fontSizeFactor: 3),
-                                    ),
-                                  ),
-                                  SizedBox.fromSize(
-                                    size: const Size(100, 120),
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      child: Transform.translate(
-                                        offset: const Offset(0, -20),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            LimitTextFormField(
-                                              labelText: 'Limite superior:',
-                                              focusNode: _upperLimitFocusNode,
-                                              controller: _upperLimitController,
-                                            ),
-                                            LimitTextFormField(
-                                              labelText: 'Limite inferior:',
-                                              focusNode: _lowerLimitFocusNode,
-                                              controller: _lowerLimitController,
-                                            ),
-                                          ],
+                                    SizedBox.fromSize(
+                                      size: const Size(100, 120),
+                                      child: Container(
+                                        color: Colors.transparent,
+                                        child: Transform.translate(
+                                          offset: const Offset(0, -20),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              LimitTextFormField(
+                                                labelText: 'Limite superior:',
+                                                focusNode: _upperLimitFocusNode,
+                                                controller:
+                                                    _upperLimitController,
+                                              ),
+                                              LimitTextFormField(
+                                                labelText: 'Limite inferior:',
+                                                focusNode: _lowerLimitFocusNode,
+                                                controller:
+                                                    _lowerLimitController,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        ExpressionTextFormFieldCard(
-                                          hintText: 'Digite o numerador',
-                                          focusNode: _numeratorFocusNode,
-                                          controller: _numeratorController,
-                                        ),
-                                        const Divider(
-                                          height: 0,
-                                          endIndent: 16,
-                                          indent: 16,
-                                        ),
-                                        ExpressionTextFormFieldCard(
-                                          hintText: 'Digite o denominador',
-                                          focusNode: _denominatorFocusNode,
-                                          controller: _denominatorController,
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          ExpressionTextFormFieldCard(
+                                            hintText: 'Digite o numerador',
+                                            focusNode: _numeratorFocusNode,
+                                            controller: _numeratorController,
+                                            validator: (p0) {
+                                              p0 ??= '';
+
+                                              // x, 1x
+                                              if (RegExp(
+                                                r'^[\-\+]?\d*x$',
+                                              ).hasMatch(p0)) {
+                                                return null;
+                                              }
+
+                                              // 1
+                                              if (RegExp(
+                                                r'^[\-\+]?\d+$',
+                                              ).hasMatch(p0)) {
+                                                return null;
+                                              }
+
+                                              return 'Numerador inválido.';
+                                            },
+                                          ),
+                                          const Divider(
+                                            height: 0,
+                                            endIndent: 16,
+                                            indent: 16,
+                                          ),
+                                          ExpressionTextFormFieldCard(
+                                            hintText: 'Digite o denominador',
+                                            focusNode: _denominatorFocusNode,
+                                            controller: _denominatorController,
+                                            validator: (p0) {
+                                              p0 ??= '';
+
+                                              // (x + 1)(x + 1)(x + 1)
+                                              if (RegExp(
+                                                r'^\(x\s[\-\+]\s\d+\)\(x\s[\-\+]\s\d+\)\(x\s[\-\+]\s\d+\)$',
+                                              ).hasMatch(p0)) {
+                                                return null;
+                                              }
+
+                                              // (x + 1)(x + 1)
+                                              if (RegExp(
+                                                r'^\(x\s[\-\+]\s\d+\)\(x\s[\-\+]\s\d+\)$',
+                                              ).hasMatch(p0)) {
+                                                return null;
+                                              }
+
+                                              // x² + 1x + 1
+                                              if (RegExp(
+                                                r'^x²\s[\-\+]\s\d+x\s[\-\+]\s\d+$',
+                                              ).hasMatch(p0)) {
+                                                return null;
+                                              }
+
+                                              // x² + 1
+                                              if (RegExp(
+                                                r'^x²\s[\-\+]\s\d+$',
+                                              ).hasMatch(p0)) {
+                                                return null;
+                                              }
+
+                                              return 'Denominador inválido.';
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               Builder(
                                 builder: (context) {

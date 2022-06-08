@@ -62,7 +62,7 @@ class Calculadora {
   /// Método de concatenar o sinal ao número.
   static String _colocaSinal({required final double num}) {
     if (num > 0) {
-      final out = '+ $num';
+      final out = '+ $num'.trimDecimal();
 
       return out;
     }
@@ -253,7 +253,6 @@ class Calculadora {
       final temp = abc[i];
 
       soma += temp * math.log(numX * plus);
-
       soma -= temp * math.log(numX * minus);
     }
 
@@ -299,7 +298,9 @@ class Calculadora {
       if (baixo[i].numX == 1) {
         numX = 'x';
       } else {
-        numX = '${baixo[i].numX}x';
+        final temp = baixo[i].numX.toString().trimDecimal();
+
+        numX = '${temp}x';
       }
 
       final preLn = _colocaSinal(num: abc[i]).trimDecimal();
