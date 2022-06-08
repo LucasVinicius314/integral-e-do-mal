@@ -7,12 +7,14 @@ class ExpressionTextFormFieldCard extends StatelessWidget {
     Key? key,
     this.hintText,
     this.focusNode,
+    this.validator,
     this.controller,
   }) : super(key: key);
 
   final String? hintText;
   final FocusNode? focusNode;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   final _inputFormatters = [
     FilteringTextInputFormatter.allow(RegExp(r'[\(\)\+\-\s1234567890x²³]')),
@@ -25,6 +27,7 @@ class ExpressionTextFormFieldCard extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       child: TextFormField(
         focusNode: focusNode,
+        validator: validator,
         controller: controller,
         textAlign: TextAlign.center,
         inputFormatters: _inputFormatters,
