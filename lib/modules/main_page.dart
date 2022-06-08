@@ -264,10 +264,18 @@ class _MainPageState extends State<MainPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text('Histórico'),
-                Text(
-                  'É só uma lista das últimas coisas que foram calculadas.',
-                  style: Theme.of(context).textTheme.caption,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Histórico'),
+                      Text(
+                        'É só uma lista das últimas coisas que foram calculadas.',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
